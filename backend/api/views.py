@@ -1,12 +1,26 @@
+from curses.ascii import HT
 from dataclasses import dataclass
-from datetime import date
-from pyexpat import model
-from django.http import JsonResponse
-import json
+from email import header
+from wsgiref import headers
 from products.models import Product
+from datetime import date
+import imp
+from pyexpat import model
+from django.http import JsonResponse, HttpResponse
+import json
+from django.forms.models import model_to_dict
 
 
 
+def api_home(request, *args, **kwargs):
+    model_data = Product.objects.all().order_by("?").first()
+    data = {}
+    if model_data:
+        data = model_to_dict(model_data, fields=['id', 'title', 'price'])
+    return JsonResponse(data)
+    # return HttpResponse(json_data_str,headers = {'content-Type': 'application/json'})
+
+"""
 def api_home(request, *args, **kwargs):
     # serialization :
     # model instance (model_data)
@@ -22,6 +36,7 @@ def api_home(request, *args, **kwargs):
     # serialization 
     return JsonResponse(data)
 
+"""
 """
 def api_home(request, *args, **kwargs):
     print(request.GET) # url query params
