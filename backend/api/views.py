@@ -11,25 +11,28 @@ from django.forms.models import model_to_dict
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from products.serializers import ProductSerializer
+from django.http import JsonResponse
 
-@api_view(["GET","POST"])
+# @api_view(["GET","POST"])
+@api_view(["POST"])
 def api_home(request, *args, **kwargs):
-    data = {}
+    data = request.data
     """
     model_data = Product.objects.all().order_by("?").first()
     if model_data:
         data = model_to_dict(model_data, fields=['id', 'title', 'price','sale_price'])
     """
+    """
     instance = Product.objects.all().order_by("?").first()
     if instance: 
         # data = model_to_dict(instance, fields=['id', 'title', 'price','sale_price'])
         data = ProductSerializer(instance).data
+    """
     return Response(data)
 
 
 """
 from django.http import JsonResponse, HttpResponse
-
 
 
 def api_home(request, *args, **kwargs):
@@ -73,5 +76,4 @@ def api_home(request, *args, **kwargs):
     data['headers'] = dict(request.headers)
     data['content_type'] = request.content_type
     return JsonResponse(data)
-
 """
