@@ -17,6 +17,7 @@ from django.http import JsonResponse
 @api_view(["POST"])
 def api_home(request, *args, **kwargs):
     data = request.data
+
     """
     model_data = Product.objects.all().order_by("?").first()
     if model_data:
