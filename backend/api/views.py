@@ -12,11 +12,19 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from products.serializers import ProductSerializer
 from django.http import JsonResponse
+from yaml import serialize
+
 
 # @api_view(["GET","POST"])
 @api_view(["POST"])
 def api_home(request, *args, **kwargs):
-    data = request.data
+    # data = request.data
+    serializer = ProductSerializer(data=request.data)
+    if serializer.is_valid():
+        instance = serializer.save()
+        # instance = form.save()
+        print(instance)
+        return Response(serializer.data)
 
     """
     model_data = Product.objects.all().order_by("?").first()

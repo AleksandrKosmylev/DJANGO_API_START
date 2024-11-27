@@ -13,6 +13,10 @@ class ProductSerializer(serializers.ModelSerializer):
             "my_discount"
         ]
     def get_my_discount(self, obj):
+        try:
+            return obj.get_discount()
+        except:
+            return None
         return obj.get_discount()
 
 
