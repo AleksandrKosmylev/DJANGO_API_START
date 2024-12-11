@@ -23,6 +23,7 @@ def api_home(request, *args, **kwargs):
     if serializer.is_valid():
         instance = serializer.save()
         # instance = form.save()
+        print(serializer.data)
         print(instance)
         return Response(serializer.data)
 
