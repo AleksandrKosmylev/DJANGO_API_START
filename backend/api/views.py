@@ -1,6 +1,7 @@
 from curses.ascii import HT
 from dataclasses import dataclass
 from email import header
+from logging import raiseExceptions
 from wsgiref import headers
 from products.models import Product
 from datetime import date
@@ -20,12 +21,13 @@ from yaml import serialize
 def api_home(request, *args, **kwargs):
     # data = request.data
     serializer = ProductSerializer(data=request.data)
-    if serializer.is_valid():
+    if serializer.is_valid(raise_exception=True):
         instance = serializer.save()
         # instance = form.save()
         print(serializer.data)
         print(instance)
         return Response(serializer.data)
+    return Response({"invalid":"not good data"}, status=400)
 
     """
     model_data = Product.objects.all().order_by("?").first()
