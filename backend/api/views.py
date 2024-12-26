@@ -17,6 +17,7 @@ from yaml import serialize
 
 
 # @api_view(["GET","POST"])
+""" POST request """
 @api_view(["POST"])
 def api_home(request, *args, **kwargs):
     # data = request.data
